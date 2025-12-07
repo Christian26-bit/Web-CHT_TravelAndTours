@@ -31,3 +31,6 @@ document.querySelector('.logout')?.addEventListener('click', () => {
     localStorage.removeItem("loggedIn");
     window.location.href = "index.html";
 });
+
+
+// Test comment
