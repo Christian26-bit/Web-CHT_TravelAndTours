@@ -1,0 +1,16 @@
+{
+    "name": "jerico/cht-travel-and-tours",
+    "description": "A Travel and Tours management system for CHT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "app/"
+        ]
+    },
+    "require": {
+        "symfony/routing": "^7.4",
+        "symfony/http-foundation": "^7.4"
+    }
+}
