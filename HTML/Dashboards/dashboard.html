@@ -1,97 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="../CSS/cht.css">
+  <meta charset="UTF-8">
+  <title>Dashboard Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <link rel="stylesheet" href="../CSS/dashboard.css">
     <script src="cht.js" defer></script>
 </head>
 <body>
-
-<div class="sidebar">
-    <div class="logo">
-        <h2>CHT Travel</h2>
-        <span>Management System</span>
-    </div>
-
-    <ul class="menu">
-        <li class="active">Dashboard</li>
-        <li>New Booking</li>
-        <li>Customers</li>
-        <li>Tour Packages</li>
-        <li>Trips</li>
-        <li>Hotels</li>
-        <li>Transportation</li>
-        <li>Payments</li>
-        <li>Reports</li>
-    </ul>
-
-    <div class="logout">Logout</div>
-</div>
-
-<div class="main">
-    <h1>Dashboard Overview</h1>
-    <p>Welcome back! Here’s what’s happening with your travel agency today.</p>
-
-    <div class="stats">
-        <div class="card">
-            <h3>Total Customers</h3>
-            <p>248</p>
+  <div class="main-bg">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <i class="fa-solid fa-plane-departure"></i>
+        <div>
+          <span class="sidebar-title">CHT Travel</span>
+          <span class="sidebar-subtitle">Management System</span>
         </div>
-        <div class="card">
-            <h3>Ongoing Trips</h3>
-            <p>12</p>
+      </div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" href="#"><i class="fa-solid fa-table-cells-large"></i> Dashboard</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-plus"></i> New Booking</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-users"></i> Customers</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-gift"></i> Tour Packages</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-location-dot"></i> Trips</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-hotel"></i> Hotels</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-car"></i> Transportation</a>
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-credit-card"></i> Payments</a>
+      </nav>
+      <div class="sidebar-logout">
+        <a class="sidebar-link" href="#"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </aside>
+    <main class="content">
+      <div class="top-bar">
+        <div class="breadcrumb">
+          Dashboard
         </div>
-        <div class="card">
-            <h3>Upcoming Trips</h3>
-            <p>28</p>
-        </div>
-        <div class="card">
-            <h3>Completed Trips</h3>
-            <p>156</p>
-        </div>
-    </div>
+        <button class="booking-btn">
+          <i class="fa-solid fa-plus"></i> Create New Booking
+        </button>
+      </div>
+      <div class="page-header">
+        <div class="header-title">Dashboard Overview</div>
+        <div class="header-desc">Welcome back! Here's what's happening with your travel agency today.</div>
+      </div>
 
-    <div class="actions">
-        <button class="blue">+ Add New Customer</button>
-        <button>+ New Trip</button>
-        <button>View Reports</button>
-    </div>
+      <div class="dashboard-cards">
+        <div class="dashboard-card">
+          <div class="dashboard-card-label">Total Customers</div>
+          <div class="dashboard-card-content">
+            <div class="dashboard-card-value">248</div>
+            <span class="dashboard-icon customers"><i class="fa-solid fa-user-group"></i></span>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-label">Ongoing Trips</div>
+          <div class="dashboard-card-content">
+            <div class="dashboard-card-value">12</div>
+            <span class="dashboard-icon ongoing"><i class="fa-solid fa-location-dot"></i></span>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-label">Upcoming Trips</div>
+          <div class="dashboard-card-content">
+            <div class="dashboard-card-value">28</div>
+            <span class="dashboard-icon upcoming"><i class="fa-solid fa-clock"></i></span>
+          </div>
+        </div>
+        <div class="dashboard-card">
+          <div class="dashboard-card-label">Completed Trips</div>
+          <div class="dashboard-card-content">
+            <div class="dashboard-card-value">156</div>
+            <span class="dashboard-icon completed"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+        </div>
+      </div>
 
-    <h2>Recent Trips</h2>
-    <table>
-        <thead>
+      <div class="dashboard-actions">
+        <div class="dashboard-actions-label">Quick Actions</div>
+        <div class="dashboard-actions-group">
+          <button class="action-btn blue"><i class="fa-solid fa-plus"></i> Add New Customer</button>
+          <button class="action-btn"><i class="fa-solid fa-plus"></i> New Trip</button>
+          <button class="action-btn">View Reports</button>
+        </div>
+      </div>
+
+      <div class="dashboard-section">
+        <div class="dashboard-section-header">
+          <span>Recent Trips</span>
+          <a href="#" class="view-all-link">View All</a>
+        </div>
+        <table class="dashboard-table">
+          <thead>
             <tr>
-                <th>Trip ID</th>
-                <th>Customer</th>
-                <th>Destination</th>
-                <th>Package</th>
-                <th>Start Date</th>
-                <th>Status</th>
+              <th>Trip ID</th>
+              <th>Customer</th>
+              <th>Destination</th>
+              <th>Package</th>
+              <th>Start Date</th>
+              <th>Status</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <tr>
-                <td>TRP-001</td>
-                <td>John Smith</td>
-                <td>Boracay</td>
-                <td>Beach Paradise</td>
-                <td>Nov 5, 2025</td>
-                <td><span class="ongoing">Ongoing</span></td>
+              <td>TRP-001</td>
+              <td>John Smith</td>
+              <td>Boracay</td>
+              <td>Beach Paradise</td>
+              <td>Nov 5, 2025</td>
+              <td><span class="table-status ongoing">Ongoing</span></td>
             </tr>
-
             <tr>
-                <td>TRP-002</td>
-                <td>Sarah Johnson</td>
-                <td>Palawan</td>
-                <td>Island Adventure</td>
-                <td>Nov 8, 2025</td>
-                <td><span class="upcoming">Upcoming</span></td>
+              <td>TRP-002</td>
+              <td>Sarah Johnson</td>
+              <td>Palawan</td>
+              <td>Island Adventure</td>
+              <td>Nov 8, 2025</td>
+              <td><span class="table-status upcoming">Upcoming</span></td>
             </tr>
-        </tbody>
-    </table>
-</div>
-
-<script src="js/script.js"></script>
+            <tr>
+              <td>TRP-003</td>
+              <td>Michael Brown</td>
+              <td>Baguio</td>
+              <td>Mountain Escape</td>
+              <td>Nov 1, 2025</td>
+              <td><span class="table-status ongoing">Ongoing</span></td>
+            </tr>
+            <tr>
+              <td>TRP-004</td>
+              <td>Emily Davis</td>
+              <td>Siargao</td>
+              <td>Surf &amp; Chill</td>
+              <td>Nov 10, 2025</td>
+              <td><span class="table-status upcoming">Upcoming</span></td>
+            </tr>
+            <tr>
+              <td>TRP-005</td>
+              <td>David Wilson</td>
+              <td>Cebu</td>
+              <td>City Explorer</td>
+              <td>Oct 28, 2025</td>
+              <td><span class="table-status completed">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
