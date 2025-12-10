@@ -24,10 +24,15 @@
       referrerpolicy="no-referrer"
     />
 
-    <link rel="stylesheet" href="../CSS/dashboard.css" />
-    <script src="../../JS/cht.js" defer></script>
+    <link rel="stylesheet" href="/dashboard.css">
   </head>
   <body>
+  <section>
+      <h1>Homepage</h1>
+      <p>
+          <a href="<?php echo $routeToEmployee ?>">Check the first product</a>
+      </p>
+      <section>
     <div class="layout">
       <aside class="sidebar" aria-label="Main navigation">
         <div class="sidebar-header">

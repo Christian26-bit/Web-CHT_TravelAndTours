@@ -63,7 +63,7 @@ class Employee
 
     }
 
-    public function read() {
+    public function read(int $EmployeeID) {
 
     }
     public function update() {
