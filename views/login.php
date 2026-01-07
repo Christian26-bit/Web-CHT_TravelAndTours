@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+    <meta charset="UTF-8">
+    <title>CHT Travel & Tour Management System - Login</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        body.login-body {
+            background: url('assets/images/new background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .login-card {
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+        }
+        .login-card, .login-card * {
+            color: #fff !important;
+        }
+        .login-card select, .login-card option {
+            color: #111 !important;
+            background: #fff !important;
+        }
+        .login-card input[type="password"], .login-card input[type="text"] {
+            color: #111 !important;
+            background: #fff !important;
+        }
+        #loginMessage {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            text-align: center;
+        }
+        #loginMessage.error {
+            background: #be6f7b;
+            color: #c62828;
+            display: block;
+        }
+        #loginMessage.success {
+            background: #85d18b;
+            color: #2e7d32;
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="login-body">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <img src="assets/images/no bg logo.png" alt="CHT Travel & Tours Logo" style="max-width: 150px; width: 150px; height: auto; display: block;">
+            </div>
+
+            <div class="login-title">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue to your dashboard</p>
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="role">Login As</label>
+                    <select id="role" name="role">
+                        <option value="admin">ADMIN</option>
+                        <option value="user">USER</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email / Username</label>
+                    <input id="email" type="text" placeholder="Enter your email or username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" placeholder="Enter your password">
+                </div>
+
+                <div id="loginMessage"></div>
+
+                <div class="login-actions">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+                </div>
+            </form>
+
+            <div class="login-footer">
+                CHT Travel & Tour Management System<br>
+                © 2026 All rights reserved
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            const messageDiv = document.getElementById('loginMessage');
+            
+            // Validate inputs
+            if (!email || !password) {
+                messageDiv.className = 'error';
+                messageDiv.innerHTML = 'Please enter email and password.';
+                return;
+            }
+            
+            // Show loading
+            messageDiv.className = '';
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = 'Signing in...';
+            
+            // Send login request
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('password', password);
+            
+            fetch(BASE_URL + 'api/login', {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    // Check role permissions
+                    // Admin can login as admin or user
+                    // User can ONLY login as user
+                    if (res.role === 'user' && role === 'admin') {
+                        messageDiv.className = 'error';
+                        messageDiv.innerHTML = 'Access Denied. You do not have ADMIN privileges.';
+                        return;
+                    }
+                    
+                    // Success - store user info and redirect
+                    localStorage.setItem('cht_current_username', res.name || res.email);
+                    messageDiv.className = 'success';
+                    messageDiv.innerHTML = 'Login successful! Redirecting...';
+                    
+                    // Redirect based on SELECTED role (not database role)
+                    setTimeout(() => {
+                        if (role === 'admin') {
+                            window.location.href = BASE_URL + 'admin/dashboard';
+                        } else {
+                            window.location.href = BASE_URL + 'user/dashboard';
+                        }
+                    }, 500);
+                } else {
+                    // Failed - show error
+                    messageDiv.className = 'error';
+                    messageDiv.innerHTML = res.error || 'Invalid email or password.';
+                }
+            })
+            .catch(err => {
+                console.error('Login error:', err);
+                messageDiv.className = 'error';
+                messageDiv.innerHTML = 'Server error. Please try again.';
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
