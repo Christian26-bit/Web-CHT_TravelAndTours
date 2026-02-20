@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+  <meta charset="UTF-8">
+  <title>CHT Travel & Tour Management - Trips</title>
+  <link rel="stylesheet" href="assets/css/user_style.css">
+  <link rel="stylesheet" href="assets/css/user-booking.css">
+</head>
+<body class="user-body">
+  <!-- SIDEBAR -->
+  <aside class="user-sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">CHT</div>
+      <div class="logo-text">
+        <span>CHT Travel & Tours</span>
+        <small>User Panel</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button class="btn-new-booking" onclick="window.location.href = BASE_URL + 'bookings/1'">+ New Booking</button>
+
+      <a href="user/dashboard" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span> Dashboard
+      </a>
+      <a href="user/bookings" class="sidebar-item">
+        <span class="sidebar-icon">📅</span> Bookings
+      </a>
+      <a href="user/clients" class="sidebar-item">
+        <span class="sidebar-icon">👤</span> Clients
+      </a>
+      <a href="user/tour_packages" class="sidebar-item">
+        <span class="sidebar-icon">🧳</span> Tour Packages
+      </a>
+      <a href="user/trips" class="sidebar-item active">
+        <span class="sidebar-icon">📍</span> Trips
+      </a>
+      <a href="user/hotel" class="sidebar-item">
+        <span class="sidebar-icon">🏨</span> Hotel
+      </a>
+      <a href="#" class="sidebar-item">
+        <span class="sidebar-icon">🚐</span> Transportation
+      </a>
+      <a href="user/payments" class="sidebar-item">
+        <span class="sidebar-icon">💳</span> Payments
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="userLogoutBtn" class="logout-link">⟵ Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="user-content">
+  <header class="content-header">
+    <div>
+      <h1 class="content-title">Trips</h1>
+      <p class="content-subtitle">View scheduled trips and itineraries</p>
+    </div>
+    <div>
+      <span id="tripsCountLabel">0 trips</span>
+    </div>
+  </header>
+
+  <section class="trips-search-row">
+    <div class="trips-search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="tripsSearch"
+        placeholder="Search trips by name or location..."
+      >
+    </div>
+  </section>
+
+  <section class="table-wrapper big">
+    <table id="tripsTable">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Trip Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- rows from JS -->
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<script src="assets/js/user/userTrips.js"></script>
+</body>
+</html>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

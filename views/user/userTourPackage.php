@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+  <meta charset="UTF-8">
+  <title>CHT Travel & Tour Management - Tour Packages</title>
+  <link rel="stylesheet" href="assets/css/user_style.css">
+  
+</head>
+<body class="user-body">
+  <!-- SIDEBAR -->
+  <aside class="user-sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">CHT</div>
+      <div class="logo-text">
+        <span>CHT Travel & Tours</span>
+        <small>User Panel</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+       <button class="btn-new-booking" onclick="window.location.href = BASE_URL + 'bookings/1'">+ New Booking</button>
+
+      <a href="user/dashboard" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span> Dashboard
+      </a>
+      <a href="user/bookings" class="sidebar-item">
+        <span class="sidebar-icon">📅</span> Bookings
+      </a>
+      <a href="user/clients" class="sidebar-item">
+        <span class="sidebar-icon">👤</span> Clients
+      </a>
+      <a href="user/tour_packages" class="sidebar-item active">
+        <span class="sidebar-icon">🧳</span> Tour Packages
+      </a>
+      <a href="user/trips" class="sidebar-item">
+        <span class="sidebar-icon">📍</span> Trips
+      </a>
+      <a href="user/hotel" class="sidebar-item">
+        <span class="sidebar-icon">🏨</span> Hotel
+      </a>
+      <a href="user/transportation" class="sidebar-item">
+        <span class="sidebar-icon">🚐</span> Transportation
+      </a>
+      <a href="user/payments" class="sidebar-item">
+        <span class="sidebar-icon">💳</span> Payments
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="userLogoutBtn" class="logout-link">⟵ Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+ <main class="user-content">
+  <header class="content-header bookings-header">
+    <div class="bookings-header-left">
+      <h1 class="content-title">Tour Packages</h1>
+      <p class="content-subtitle">
+        Browse available tour packages and destinations
+      </p>
+    </div>
+    <div class="content-header-right">
+      <span id="packagesCountLabel">0 packages</span>
+    </div>
+  </header>
+
+  <section class="tour-packages-search-row">
+    <div class="tour-packages-search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="packagesSearch"
+        placeholder="Search packages by name or destination..."
+      >
+    </div>
+  </section>
+
+  <section id="packagesGrid" class="tour-packages-grid">
+    <!-- cards inserted by JS -->
+  </section>
+</main>
+
+<!-- IMAGE LIGHTBOX MODAL -->
+<div id="imageLightbox" class="lightbox-overlay hidden">
+  <button class="lightbox-close" id="closeLightbox">✕</button>
+  <div class="lightbox-content">
+    <img id="lightboxImage" src="" alt="Package Image">
+    <p id="lightboxCaption" class="lightbox-caption"></p>
+  </div>
+</div>
+
+<script src="assets/js/user/userTourPackages.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

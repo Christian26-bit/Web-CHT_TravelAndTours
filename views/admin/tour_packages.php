@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+  <meta charset="UTF-8">
+  <title>CHT Travel & Tour Management System - Tour Packages</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="app-body">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">CHT</div>
+      <div class="logo-text">
+        <span>CHT Travel & Tours</span>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a href="admin/dashboard" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span> Dashboard
+      </a>
+      <a href="admin/tour_packages" class="sidebar-item active">
+        <span class="sidebar-icon">🧳</span> Tour Packages
+      </a>
+      <a href="admin/employees" class="sidebar-item">
+        <span class="sidebar-icon">👥</span> Employees
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="link-btn" id="logoutBtnPackages">⟵ Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <!-- PAGE HEADER -->
+    <header class="content-header">
+      <div>
+        <h1 class="content-title">
+          <span class="header-icon">🧳</span>
+          Tour Package Management
+        </h1>
+        <p class="content-subtitle">Manage all the tour packages offered by CHT Travel & Tours</p>
+      </div>
+      <div class="content-header-right">
+        <button class="btn btn-secondary small" id="refreshPackagesBtn">⟳ Refresh</button>
+        <button class="btn btn-primary small" id="scrollToFormBtn">+ Add New Package</button>
+      </div>
+    </header>
+
+    <!-- SEARCH BAR -->
+    <section class="toolbar">
+      <div class="search-group">
+        <input type="text" id="packageSearch" placeholder="Search packages...">
+        <button class="btn btn-secondary small" id="searchPackagesBtn">Search</button>
+      </div>
+    </section>
+
+    <!-- PACKAGE TABLE (TOP) -->
+    <section class="table-wrapper big" id="packagesTableWrapper">
+      <table id="packagesTable">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Destination</th>
+          <th>Duration</th>
+          <th>Max Pax</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows rendered by JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ADD / EDIT PACKAGE (BOTTOM, ALWAYS VISIBLE) -->
+    <section id="packageFormSection" class="package-form-section">
+      <div class="package-form-header">
+        <button type="button" class="accordion-title" id="toggleFormAccordion">
+          ▾ Add New Package
+        </button>
+        <!-- (You can add an indicator or icon on the right if you like) -->
+      </div>
+
+      <div id="packageFormBody" class="package-form-body">
+        <form id="packageForm" class="package-form">
+          <input type="hidden" id="packageId" name="id">
+
+          <div class="package-form-grid">
+            <!-- LEFT: IMAGE AREA -->
+            <div class="package-image-area">
+              <label>Package Image</label>
+              <div id="imageDropArea" class="image-drop">
+                <div id="imagePreview" class="image-preview empty">
+                  <span class="image-icon">☁</span>
+                  <p>Drag &amp; Drop<br><small>or click to browse</small></p>
+                </div>
+                <input type="file" id="packageImageInput" name="image" accept="image/*" hidden>
+              </div>
+              <button type="button" class="btn btn-secondary small full-width" id="browseImageBtn">📁 Browse</button>
+            </div>
+
+            <!-- RIGHT: FIELDS -->
+            <div class="package-fields">
+              <!-- First row: Package Name + Destination -->
+              <div class="row-2">
+                <div class="form-group">
+                  <label for="packageName">Package Name:</label>
+                  <input id="packageName" name="name" type="text" placeholder="Enter package name" required>
+                </div>
+                <div class="form-group">
+                  <label for="destination">Destination:</label>
+                  <input id="destination" name="destination" type="text" placeholder="Enter destination" required>
+                </div>
+              </div>
+
+              <!-- Second row: Duration + Max Participants + Price + Status -->
+              <div class="row-4">
+                <div class="form-group">
+                  <label for="duration">Duration (Days):</label>
+                  <input id="duration" name="duration_days" type="number" min="1" value="4">
+                </div>
+
+                <div class="form-group">
+                  <label for="maxPax">Max Participants:</label>
+                  <input id="maxPax" name="max_pax" type="number" min="1" value="20">
+                </div>
+
+                <div class="form-group">
+                  <label for="price">Price (₱):</label>
+                  <input id="price" name="price" type="number" step="0.01" min="0" placeholder="Enter price">
+                </div>
+
+                <div class="form-group checkbox-group">
+                  <label>Status:</label>
+                  <label class="checkbox-inline">
+                    <input id="status" name="status" type="checkbox" checked> Active
+                  </label>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="3" placeholder="Enter description"></textarea>
+              </div>
+
+              <!-- Inclusions -->
+              <div class="form-group">
+                <label for="inclusions">Inclusions:</label>
+                <textarea id="inclusions" name="inclusions" rows="3" placeholder="e.g., flights, hotel, tours, meals"></textarea>
+              </div>
+
+              <!-- ACTION BUTTONS -->
+              <div class="form-actions-right">
+                <button type="button" class="btn btn-secondary" id="cancelPackageBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="savePackageBtn">Save Package</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/admin/adminTourPackages.js"></script>
+  <script>
+    // Logout functionality
+    document.getElementById('logoutBtnPackages').addEventListener('click', function() {
+      localStorage.removeItem('cht_current_username');
+      window.location.href = BASE_URL + 'login';
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

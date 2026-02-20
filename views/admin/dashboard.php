@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+  <meta charset="UTF-8">
+  <title>CHT Travel & Tour Management System - Dashboard</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="app-body">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">CHT</div>
+      <div class="logo-text">
+        <span>CHT Travel & Tours</span>
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a href="admin/dashboard" class="sidebar-item active">
+        <span class="sidebar-icon">🏠</span> Dashboard
+      </a>
+      <a href="admin/tour_packages" class="sidebar-item">
+        <span class="sidebar-icon">🧳</span> Tour Packages
+      </a>
+      <a href="admin/employees" class="sidebar-item">
+        <span class="sidebar-icon">👥</span> Employees
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="link-btn" id="logoutBtnDash">⟵ Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <header class="content-header">
+      <div>
+        <h1 class="content-title">Admin Dashboard</h1>
+        <p class="content-subtitle">Overview of sales, bookings and performance</p>
+      </div>
+      <div class="content-header-right">
+        <button class="btn btn-primary small" id="refreshDashboardBtn">⟳ Refresh Data</button>
+      </div>
+    </header>
+
+    <!-- TOP METRICS -->
+    <section class="grid-4">
+      <article class="card metric-card">
+        <div class="card-icon money">₱</div>
+        <div>
+          <p class="metric-label">Total Sales</p>
+          <p class="metric-value" id="totalSalesValue">Loading...</p>
+        </div>
+      </article>
+
+      <article class="card metric-card">
+        <div class="card-icon booking">📅</div>
+        <div>
+          <p class="metric-label">Total Bookings</p>
+          <p class="metric-value" id="totalBookingsValue">Loading...</p>
+        </div>
+      </article>
+
+      <article class="card metric-card">
+        <div class="card-icon package">🧳</div>
+        <div>
+          <p class="metric-label">Active Packages</p>
+          <p class="metric-value" id="activePackagesValue">Loading...</p>
+        </div>
+      </article>
+
+      <article class="card metric-card">
+        <div class="card-icon employee">👥</div>
+        <div>
+          <p class="metric-label">Active Employees</p>
+          <p class="metric-value" id="activeEmployeesValue">Loading...</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="grid-2">
+      <article class="card">
+        <h2 class="card-title">Popular Tour Packages</h2>
+        <div class="fake-pie"></div>
+        <div class="legend">
+          <span class="dot blue"></span> Hokkaido Icebreaker + Sapporo Snow Festival
+          <span class="dot green"></span> Hong Kong & Macau Getaway
+          <span class="dot orange"></span> Taiwan Taipei + Taichung 4D3N
+          <span class="dot purple"></span> Bali 4D3N Christmas Tour
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-title">Employee Performance</h2>
+        <div class="fake-bar-chart">
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:100%"></div>
+          <div class="bar" style="height:90%"></div>
+          <div class="bar" style="height:10%"></div>
+          <div class="bar" style="height:5%"></div>
+          <div class="bar" style="height:15%"></div>
+        </div>
+        <p class="chart-caption">Number of bookings per employee (sample data)</p>
+      </article>
+    </section>
+
+    <!-- BOTTOM TABLES -->
+    <section class="grid-2">
+      <article class="card">
+        <h2 class="card-title">Recent Bookings</h2>
+        <div class="table-wrapper">
+          <table id="recentBookingsTable">
+            <thead>
+            <tr>
+              <th>ID</th><th>Client</th><th>Package</th><th>Date</th><th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Loaded by JS -->
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2 class="card-title">Top Performers</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+            <tr>
+              <th>#</th><th>Employee</th><th>Bookings</th><th>Total Sales</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td>1</td><td>Anna Reyes</td><td>1</td><td>₱288,800.00</td></tr>
+            <tr><td>2</td><td>Mark Santos</td><td>1</td><td>₱228,800.00</td></tr>
+            <tr><td>3</td><td>admin</td><td>1</td><td>₱0.00</td></tr>
+            <tr><td>4</td><td>John Cruz</td><td>0</td><td>₱0.00</td></tr>
+            <tr><td>5</td><td>Maria Gomez</td><td>0</td><td>₱0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="assets/js/admin/adminDashboard.js"></script>
+  <script>
+    // Logout functionality
+    document.getElementById('logoutBtnDash').addEventListener('click', function() {
+      localStorage.removeItem('cht_current_username');
+      window.location.href = BASE_URL + 'login';
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

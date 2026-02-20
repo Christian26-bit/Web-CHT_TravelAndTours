@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="<?php echo $baseUrl; ?>" >
+    <script>const BASE_URL = "<?php echo $baseUrl; ?>";</script>
+  <meta charset="UTF-8">
+  <title>CHT Travel & Tour Management - Bookings</title>
+  <link rel="stylesheet" href="assets/css/user_style.css">
+  <link rel="stylesheet" href="assets/css/bookings.css">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal.show { display: flex; }
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem 1.8rem;
+      min-width: 320px;
+      max-width: 480px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      position: relative;
+      animation: modalIn 0.2s;
+    }
+    @keyframes modalIn { from { transform: translateY(-40px); opacity: 0; } to { transform: none; opacity: 1; } }
+    .modal-content h2 { margin-top: 0; }
+    .modal-content label { display: block; margin: 0.7em 0 0.2em; font-weight: 500; }
+    .modal-content input, .modal-content select, .modal-content textarea {
+      width: 100%; padding: 0.5em; margin-bottom: 0.5em; border-radius: 5px; border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    .modal-content .btn.btn-primary { width: 100%; margin-top: 1em; }
+    .modal-content .close {
+      position: absolute; right: 1.2em; top: 1.2em; font-size: 1.5em; cursor: pointer; color: #888;
+    }
+    .modal-content .close:hover { color: #222; }
+  </style>
+</head>
+<body class="user-body">
+  <!-- SIDEBAR -->
+  <aside class="user-sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-circle">CHT</div>
+      <div class="logo-text">
+        <span>CHT Travel & Tours</span>
+        <small>User Panel</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button class="btn-new-booking" onclick="window.location.href = BASE_URL + 'bookings/1'">+ New Booking</button>
+
+      <a href="user/dashboard" class="sidebar-item">
+        <span class="sidebar-icon">🏠</span> Dashboard
+      </a>
+      <a href="user/bookings" class="sidebar-item active">
+        <span class="sidebar-icon">📅</span> Bookings
+      </a>
+
+      <a href="user/clients" class="sidebar-item">
+        <span class="sidebar-icon">👤</span> Clients
+      </a>
+      <a href="user/tour_packages" class="sidebar-item">
+        <span class="sidebar-icon">🧳</span> Tour Packages
+      </a>
+      <a href="user/trips" class="sidebar-item">
+        <span class="sidebar-icon">📍</span> Trips
+      </a>
+      <a href="user/hotel" class="sidebar-item">
+        <span class="sidebar-icon">🏨</span> Hotel
+      </a>
+      <a href="user/transportation" class="sidebar-item">
+        <span class="sidebar-icon">🚐</span> Transportation
+      </a>
+      <a href="user/payments" class="sidebar-item">
+        <span class="sidebar-icon">💳</span> Payments
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="userLogoutBtn" class="logout-link">⟵ Logout</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="user-content">
+    <!-- HEADER -->
+    <header class="content-header bookings-header">
+  <div class="bookings-header-left">
+    <div class="bookings-header-icon">📅</div>
+    <div>
+      <h1 class="content-title">Bookings</h1>
+      <p class="content-subtitle">
+        Manage all travel bookings and reservations
+      </p>
+    </div>
+  </div>
+  <div class="bookings-header-right">
+    <span id="bookingsCountLabel">0 bookings</span>
+  </div>
+</header>
+
+<section class="bookings-toolbar">
+  <div class="bookings-search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      type="text"
+      id="bookingsSearch"
+      placeholder="Search by client, destination, or package..."
+    >
+  </div>
+
+  <!-- Styled New Booking button -->
+  <button class="btn btn-primary bookings-new-btn" id="newBookingBtnTop">
+    + New Booking
+  </button>
+
+  <span class="bookings-count-label" id="bookingsCountLabel">0 booking(s)</span>
+</section>
+
+    <!-- STATS CARDS -->
+    <section class="bookings-stats-row">
+      <article class="card bookings-stat-card">
+        <div class="bookings-stat-label">Total Bookings</div>
+        <div class="bookings-stat-value" id="statTotal">0</div>
+      </article>
+      <article class="card bookings-stat-card">
+        <div class="bookings-stat-label">Confirmed</div>
+        <div class="bookings-stat-value" id="statConfirmed">0</div>
+      </article>
+      <article class="card bookings-stat-card">
+        <div class="bookings-stat-label">Cancelled</div>
+        <div class="bookings-stat-value" id="statCancelled">0</div>
+      </article>
+    </section>
+
+    <!-- TABLE -->
+    <section class="table-wrapper big bookings-table-wrapper">
+      <table id="bookingsTable">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Destination</th>
+          <th>Package</th>
+          <th>Booking Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- rows by JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Edit Booking Modal (centered) -->
+    <div id="editBookingModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeEditModal">&times;</span>
+        <h2>Edit Booking</h2>
+        <form id="editBookingForm">
+          <input type="hidden" id="editBookingId" name="bookingId">
+          <label>Client Name: <input type="text" id="editClientName" name="clientName" required></label>
+          <label>Client Email: <input type="email" id="editClientEmail" name="clientEmail"></label>
+          <label>Client Contact: <input type="text" id="editClientContact" name="clientContact"></label>
+          <label>Destination:
+            <select id="editDestination" name="destination"></select>
+          </label>
+          <label>Package Name:
+            <select id="editPackageName" name="packageName"></select>
+          </label>
+          <label>Booking Date: <input type="date" id="editBookingDate" name="bookingDate"></label>
+          <label>Pax Count: <input type="number" id="editPax" name="pax" min="1"></label>
+          <label>Total Amount: <input type="number" id="editTotalAmount" name="totalAmount" min="0" step="0.01"></label>
+          <label>Status:
+            <select id="editStatus" name="status">
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </label>
+          <label>Special Requests: <textarea id="editSpecialRequests" name="specialRequests"></textarea></label>
+          <label>Addons: <input type="text" id="editAddons" name="addons"></label>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/user/userBookings.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
